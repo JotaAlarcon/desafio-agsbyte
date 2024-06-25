@@ -5,13 +5,22 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-
+import "../styles/formstyle.css";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+
+  const errorLoginToast = () =>
+    toast.error("Error al ingresar, verifique sus credenciales.");
+  const resetPassToast = () =>
+    toast.success(
+      "Se ha enviado un enlace de recuperacion a su email, si no lo encuentra verifique su bandeja de spam"
+    );
 
   const [dataForm, setDataForm] = useState({
     email: "",
@@ -43,7 +52,7 @@ const LoginPage = () => {
         },
       });
     } catch (error) {
-      console.log("Error al ingresar: ", error);
+      errorLoginToast();
     }
   };
 
@@ -51,44 +60,44 @@ const LoginPage = () => {
     try {
       if (!dataForm.email) alert("ingrese un email para reestablecer password");
       await sendPasswordResetEmail(auth, dataForm.email);
-      alert(
-        "Revise la bandeja de su correo para reestablecer la password, si no lo puede ver, revise la bandeja de spam"
-      );
+      resetPassToast();
     } catch (error) {}
   };
 
   return (
-    <div className="form-container">
-      {<h2>Login</h2>}
+    <div className="container">
+      <div className="form-container">
+        <ToastContainer position="top-center" autoClose={7000} />
+        {<h2>Login</h2>}
+        <form className="form" onSubmit={onSubmit}>
+          <input
+            className="custom-input"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={dataForm.email}
+            onChange={handleChangeInput}
+            required
+          />
+          <input
+            className="custom-input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={dataForm.password}
+            onChange={handleChangeInput}
+            required
+          />
 
-      <form className="form" onSubmit={onSubmit}>
-        <input
-          className="custom-input"
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={dataForm.email}
-          onChange={handleChangeInput}
-          required
-        />
-        <input
-          className="custom-input"
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={dataForm.password}
-          onChange={handleChangeInput}
-          required
-        />
+          <span>
+            <a className="ancord" href="#" onClick={resetPass}>
+              Reestablecer password
+            </a>
+          </span>
 
-        <span>
-          <a href="#" onClick={resetPass}>
-            Reestablecer password
-          </a>
-        </span>
-
-        <button id="ingresar">Ingresar</button>
-      </form>
+          <button id="ingresar">Ingresar</button>
+        </form>
+      </div>
     </div>
   );
 };

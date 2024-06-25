@@ -24,12 +24,14 @@ const Navbar = () => {
     <>
       <header>
         <h1>
-          <Link to={"/"}>Logo</Link>
+          <Link className="logo" to={"/"}>
+            Logo
+          </Link>
         </h1>
 
         {state?.logged ? (
           <div>
-            <span>{state?.email}</span>
+            <span className="mail">Bienvenido: {state?.email}</span>
             <button onClick={onLogout}>Cerrar sesion</button>
           </div>
         ) : (

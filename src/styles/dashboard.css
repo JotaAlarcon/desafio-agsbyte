@@ -1,0 +1,26 @@
+
+.container{
+    display: flex;
+    margin-block-start: 100px;
+}
+.card {
+    inline-size: 500px;
+    block-size: auto;
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+    background-image: linear-gradient(45deg,#241E4E, #0f0047, #7563a8 );
+}
+.card:hover{
+    transition: all 0.2s linear;
+    /* background-image: linear-gradient(45deg,#9863a8, #3b0047, #241E4E ); */
+    scale: 1.01;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+p{
+    inline-size: 50%;
+    margin-block-start: 30px;
+    margin-block-end: 20px;
+
+}

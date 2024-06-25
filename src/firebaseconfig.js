@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyDJcUW0_uLdFcRbfd-3ElvfrMbD0_kz4w0",
   authDomain: "prueba-tecnica-agsbyte.firebaseapp.com",
   projectId: "prueba-tecnica-agsbyte",
