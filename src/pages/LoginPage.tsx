@@ -4,7 +4,6 @@ import {
   getAuth,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  verifyBeforeUpdateEmail,
 } from "firebase/auth";
 import "../styles/formstyle.css";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -16,7 +15,6 @@ const LoginPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const errorLoginToast = () => toast.error("Complete los campos vacios.");
   const resetPassToast = () =>
     toast.success(
       "Se ha enviado un enlace de recuperacion a su email, si no lo encuentra verifique su bandeja de spam"
