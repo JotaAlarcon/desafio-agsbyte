@@ -14,7 +14,7 @@
 .form{
     display: flex;
     flex-direction: column;
-    inline-size: 80%;
+    inline-size: 70%;
     background-color: #D1CAE0;
     padding-block: 30px;
     padding-inline: 20px;
@@ -64,4 +64,20 @@ span > a {
     text-decoration: none;
     font-size: 14px;
     color: #01161E;
+}
+
+.alert{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.alert > p {
+    color: rgb(223, 0, 0);
+    margin: 0;
+    font-weight: 500;
+    width: auto;
+    block-size: auto;
 }

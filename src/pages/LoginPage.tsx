@@ -4,6 +4,7 @@ import {
   getAuth,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  verifyBeforeUpdateEmail,
 } from "firebase/auth";
 import "../styles/formstyle.css";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -15,8 +16,7 @@ const LoginPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const errorLoginToast = () =>
-    toast.error("Error al ingresar, verifique sus credenciales.");
+  const errorLoginToast = () => toast.error("Complete los campos vacios.");
   const resetPassToast = () =>
     toast.success(
       "Se ha enviado un enlace de recuperacion a su email, si no lo encuentra verifique su bandeja de spam"
@@ -37,28 +37,32 @@ const LoginPage = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        dataForm.email,
-        dataForm.password
-      );
+    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password)
+      .then((userCredential) => {
+        navigate("/Dashboard", {
+          replace: true,
+          state: {
+            logged: true,
+            email: userCredential.user.email,
+          },
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
 
-      navigate("/Dashboard", {
-        replace: true,
-        state: {
-          logged: true,
-          email: userCredential.user.email,
-        },
+        if (!dataForm.email)
+          toast.error("Complete el campo de correo electronico");
+        if (!dataForm.password) toast.error("Complete el campo de password");
+
+        if (errorCode == "auth/invalid-credential")
+          toast.error("error al ingresar, credenciales inválidas");
       });
-    } catch (error) {
-      errorLoginToast();
-    }
   };
 
   const resetPass = async () => {
     try {
-      if (!dataForm.email) alert("ingrese un email para reestablecer password");
+      if (!dataForm.email)
+        toast.error("Ingrese un email para reestablecer la password");
       await sendPasswordResetEmail(auth, dataForm.email);
       resetPassToast();
     } catch (error) {}
@@ -77,7 +81,6 @@ const LoginPage = () => {
             placeholder="Email"
             value={dataForm.email}
             onChange={handleChangeInput}
-            required
           />
           <input
             className="custom-input"
@@ -86,7 +89,6 @@ const LoginPage = () => {
             placeholder="Password"
             value={dataForm.password}
             onChange={handleChangeInput}
-            required
           />
 
           <span>
