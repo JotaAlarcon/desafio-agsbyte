@@ -66,7 +66,7 @@ const RegisterPage = () => {
             className="custom-input"
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Correo electrónico"
             value={dataForm.email}
             onChange={handleChangeInput}
           />
@@ -74,7 +74,7 @@ const RegisterPage = () => {
             className="custom-input"
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             value={dataForm.password}
             onChange={handleChangeInput}
           />
@@ -82,7 +82,7 @@ const RegisterPage = () => {
             className="custom-input"
             name="repeatPassword"
             type="password"
-            placeholder="Repetir password"
+            placeholder="Repetir contraseña"
             value={dataForm.repeatPassword}
             onChange={handleChangeInput}
           />

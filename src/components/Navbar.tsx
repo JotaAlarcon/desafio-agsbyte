@@ -6,14 +6,12 @@ const Navbar = () => {
   const auth = getAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
-  console.log(state);
 
   const onLogout = async () => {
     try {
       await signOut(auth);
-      console.log("Desconectado");
 
-      navigate("/login", {
+      navigate("/Login", {
         replace: true,
       });
     } catch (error) {
@@ -39,7 +37,7 @@ const Navbar = () => {
             <Link className="link" to={"/login"}>
               Iniciar sesión
             </Link>
-            <Link className="link" to={"/Register"}>
+            <Link className="link" to={"/register"}>
               Registrarse
             </Link>
           </nav>

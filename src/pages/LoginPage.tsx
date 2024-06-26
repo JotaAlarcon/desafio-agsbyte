@@ -50,7 +50,7 @@ const LoginPage = () => {
 
         if (!dataForm.email)
           toast.error("Complete el campo de correo electronico");
-        if (!dataForm.password) toast.error("Complete el campo de password");
+        if (!dataForm.password) toast.error("Complete el campo de contraseña");
 
         if (errorCode == "auth/invalid-credential")
           toast.error("error al ingresar, credenciales inválidas");
@@ -60,7 +60,7 @@ const LoginPage = () => {
   const resetPass = async () => {
     try {
       if (!dataForm.email)
-        toast.error("Ingrese un email para reestablecer la password");
+        toast.error("Ingrese un email para reestablecer la contraseña");
       await sendPasswordResetEmail(auth, dataForm.email);
       resetPassToast();
     } catch (error) {}
@@ -69,14 +69,14 @@ const LoginPage = () => {
   return (
     <div className="container">
       <div className="form-container">
-        <ToastContainer position="top-center" autoClose={7000} />
+        <ToastContainer position="top-center" autoClose={7000} limit={2} />
         {<h2>Login</h2>}
         <form className="form" onSubmit={onSubmit}>
           <input
             className="custom-input"
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Correo electrónico"
             value={dataForm.email}
             onChange={handleChangeInput}
           />
@@ -84,14 +84,14 @@ const LoginPage = () => {
             className="custom-input"
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="contraseña"
             value={dataForm.password}
             onChange={handleChangeInput}
           />
 
           <span>
             <a className="ancord" href="#" onClick={resetPass}>
-              Reestablecer password
+              Reestablecer contraseña
             </a>
           </span>
 
